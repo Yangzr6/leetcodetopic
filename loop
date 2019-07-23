@@ -1,0 +1,31 @@
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        ListNode pin=new ListNode(0),fast,slow;
+        pin.next=head;head=pin;fast=head;slow=head;
+        int s=0,ring=1;
+        try{
+            while(fast!=slow||slow==head){
+                slow=slow.next;
+                fast=fast.next.next;
+                s++;
+            }
+        }
+        catch(NullPointerException ex){
+            return null;
+        }
+        fast=fast.next;
+        while(fast!=slow){
+            fast=fast.next;
+            ring++;
+        }
+        s=s-ring;
+        for(int i=0;i<s;i++){
+            pin=pin.next;
+        }
+        while(true){
+            pin=pin.next;
+            slow=slow.next;
+            if(pin==slow){return pin;}
+        }
+    }
+}
